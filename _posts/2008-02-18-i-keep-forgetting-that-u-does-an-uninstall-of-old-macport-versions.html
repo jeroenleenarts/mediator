@@ -1,0 +1,14 @@
+---
+layout: post
+title: I keep forgetting that -u does an uninstall of old macport versions
+date: 2008-02-18 00:37:54.000000000 +01:00
+categories:
+- Mac OSX
+- Random thoughts
+tags:
+---
+<p><img src="/assets/macports-logo-top.png" alt="macports-logo-top.png" border="0" width="183" height="70" align="left" />According to the <a href="http://www.macports.org/">MacPorts</a> port command man page the option -u: "uninstall non-active ports when upgrading and uninstalling".</p>
+<p>Just running port upgrade all the time litters your systems with lots and lots op old archived versions of installed ports.</p>
+<p>To correct this whole mess you could run "sudo port -u uninstall". This should uinstall any archived versions you might have. You might need to add a -f to that to make it work: "sudo port -uf uninstall".</p>
+<p>You might have some trouble when you force a removal like this when one of your installed ports is linked against an older version of a library. This can be fixed by <a href="http://trac.macosforge.org/projects/macports/wiki/ProblemHotlist">replaying some steps on this page</a>.</p>
+<p>Basically this post is a reminder for myself. But just maybe someone might find this useful too.</p>

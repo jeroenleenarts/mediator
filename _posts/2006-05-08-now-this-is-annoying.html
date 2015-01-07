@@ -1,0 +1,18 @@
+---
+layout: post
+title: Now this is annoying...
+date: 2006-05-08 22:03:00.000000000 +02:00
+categories:
+- Mac OSX
+tags:
+---
+<p>Here I am doing my merry thing with the Apple developer tools. Apple provides a great set of <a href="http://www.apple.com/macosx/developertools/">tools for developers</a>. Believe me, it kicks hiny.</p>
+<p>But why to the mother of all things good on this earth do they forget about updating the developer kernel extensions? Either by the regular kernel OS X updates or the developer tools updates.</p>
+<p>See, what I was doing was this. The developer tools contains a tool called USB Prober, with only <a href="http://developer.apple.com/documentation/MacOSX/Conceptual/OSX_Technology_Overview/Tools/chapter_10_section_4.html" title="Do scroll down on this url.">one mention on the entire apple developer site</a>. So enthousiastic as I am, I give the little app a spin. I see some screens... I push a button labbeled start...</p>
+<p>And now the fun begins. The app asks me to if it's ok to install a file called "KLog.kext". Sure, I pushed a button and then this message popped. I enter my PW. Wham, so <a href="http://docs.info.apple.com/article.html?artnum=106227">that's what a kernel panic on Mac OS X looks like</a>. Sweet... NOT!! As mentioned I had to hard boot my system. Thanks guys, just lost 30 minutes of work while I was at it. :(</p>
+<p>Rebooted and <a href="http://lists.apple.com/archives/Usb/2006/Feb/msg00013.html">I do some searching</a>, as any good<br />
+developer does... </p>
+<p>Hmmm Hum... Something about getting the right version of the USB Debug kit...</p>
+<p>Turns out I had to install the <a href="http://developer.apple.com/hardwaredrivers/download/usbdebug.html">latest USB debug kit matching my OS revision and processor</a>.</p>
+<p>Why couldn't they just push this KLog.kext along with the regular updates.. or atleast  act more gracefully than crashing my system? Like a dialog stating that I should download the latest debug kit to proceed.</p>
+<p>It is great fun though now I got this working. I actually never plugged in and out my mouse this often in a single session. :D</p>

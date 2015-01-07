@@ -1,0 +1,23 @@
+---
+layout: post
+title: Rich Client vs. Web 2.0 - Deployment and maintenance
+date: 2006-08-09 22:13:59.000000000 +02:00
+categories:
+- Eclipse
+- Java
+- Rich Client
+- Web 2.0
+tags:
+---
+<p>Finally you've finished your latest wonder. Now to boldly move on to marvellous new functionality.</p>
+<p>Wait a second.</p>
+<p>Before moving on to something else it would be nice of you to actually make your app available to your users.</p>
+<p>Let's see. This one should be a bit of a no-brainer according to most people. Usually people start blabbering about how easy it is to deploy and maintain a web application. While this is true most of the time, things do tend to get a bit more complicated with Web 2.0. Things like Javascript and browser versions come to mind. And Rich Clients are supposed to be hard to deploy.<br />
+<!--more--><br />
+Let's see what deployment and maintenance means. Mr. sys-admin likes to receive a shiny package with a clear description about how to do something as to get the functionality available to the end-user. This can mean a lot of things. Perhaps a copy paste deployment, some scripted system configuration or even good old "click here, type that, wait a bit, click some more, etc...".</p>
+<p>Either the "stuff" has to get on a web-server or it has to get on a desktop. Both of these you can make as advanced as you would like. It even depends on the skill and tools available for system maintenance.</p>
+<p>See, most Java Rich Clients involve nothing more then unpacking a zip file and making sure a suitable Java runtime is available. No sweat there, especially when applications can be pushed centrally. You could even make a nifty installer, but all you need is to get you Swing or Eclipse application on the desktop machine.</p>
+<p>Now for Web Application this holds true too. Get it on a server, perhaps you can create a nice installer or a WAR file. The only difference is that you only have to do it once. (Uhm, what about clusters?) The hard part is usually not in the end user interface, either desktop or web based. It's the back-end services that are hard to do. You also need to get the business services deployed and you should tweak the application server accordingly.</p>
+<p>So when it comes to deployment, I doesn't really make a difference to me. Both Web 2.0 and Rich Client deployment has to be done RIGHT. That's all there is to it. If the target platform supports some kind of standardised packaging system, THINK ABOUT USING IT. It will save you a lot of headache, because you decide what gets done at deploy time. You don't want to make a nervous end-user or lazy sys-admin jump through a bunch of hoops. They'll make mistakes and start complaining about your application before even using it. That's like giving yourself a disadvantage.</p>
+<p>Next up after deployment is maintenance. Same goes here. Use standard mechanisms. Provide a complete installer package which removes (sets aside) the old installation and replaces it with the latest one. You already have that installer in your build, so why not take this single extra step. By automating things you get to keep control. For Rich Clients, use the provided mechanisms like Eclipse update sites or Webstart for Java Rich Clients. It might be a bit harder to get into yet another framework, but it pays off. What would be easier then having the end user Clients update themselves? How do you think an end-user feels when you are able to update their app without any pain? They think: "Wow, they really did a pro job." They even get some time to get a cup of coffee.</p>
+<p>So in the end, I don't feel there is all that much difference between deploying and maintaining a Web 2.0 or Rich Client. If you've got another opinion, please, post a comment. Discussion and other views are a good thing.</p>

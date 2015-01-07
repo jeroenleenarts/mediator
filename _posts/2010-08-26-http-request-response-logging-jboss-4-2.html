@@ -1,0 +1,48 @@
+---
+layout: post
+title: Enabling HTTP request response logging on JBoss 4.2
+date: 2010-08-26 10:47:17.000000000 +02:00
+categories:
+- Java
+- Work
+tags:
+  _syntaxhighlighter_encoded: '1'
+---
+<p>Today I had a bit of a fiddle with JBoss 4.2 due to IE7/IE8 compatibility differences.</p>
+<p>When opening or downloading a file in IE7 over an SSL connection (HTTPS), IE7 requires a bit of HTTP header-fu to allow you to actually perform that action.</p>
+<p>It's simple really. Just add "Pragma: public" and "Cache-Control: maxage=3600" to your HTTP headers and you're good to go.</p>
+<p>In Java code:<br />
+[code language="java"]<br />
+response.setHeader(&quot;Pragma&quot;, &quot;public&quot;);<br />
+response.setHeader(&quot;Cache-Control&quot;, &quot;maxage=3600&quot;);<br />
+[/code]</p>
+<p>To check if it's working was a different matter. How to check the HTTP header content when things get sent over an HTTPS connection... FireBug doesn't work, and so doesn't any other developer tooling in any browser. Tracing the network traffic is pretty useless too, it's encrypted. Last option, trace it on the server. Simply enabling network tracing on the Java VM didn't work. For some reason JBoss doesn't pick up this Java VM setting, probably because they are using a NIO based stack or something. I really don't know.</p>
+<p>JBoss does use Catalina for it's HTTP/HTTPS/Web container handling. Catalina is another name for Tomcat. Tomcat has this valve thing which allows you to plug into the processing pipe. Good thing there are standard Valve implementations available that do just what I needed.</p>
+<p>Just drop the next snippet somewhere appropriate:<br />
+[code language="xml"]<br />
+&lt;!-- Enable http request/response logging.--&gt;<br />
+&lt;Valve className=org.apache.catalina.valves.RequestDumperValve<br />
+           prefix=localhost_access_log. suffix=.log<br />
+           pattern=common directory=${jboss.server.home.dir}/log<br />
+           resolveHosts=false /&gt;<br />
+[/code]</p>
+<p>Appropriate in my case was in the file "[JBOSS-HOME]/server/default/deploy/jboss-web.deployer/server.xml".</p>
+<p>And lo and behold it logged:<br />
+[code]<br />
+11:46:44,262 INFO  [[localhost]]           authType=BASIC<br />
+11:46:44,262 INFO  [[localhost]]      contentLength=48189<br />
+11:46:44,262 INFO  [[localhost]]        contentType=application/pdf<br />
+11:46:44,262 INFO  [[localhost]]             header=Pragma=public<br />
+11:46:44,262 INFO  [[localhost]]             header=Cache-Control=maxage=3600<br />
+11:46:44,262 INFO  [[localhost]]             header=Expires=Thu, 01 Jan 1970 01:00:00 CET<br />
+11:46:44,262 INFO  [[localhost]]             header=X-Powered-By=Servlet 2.4; JBoss-4.2.3.GA (build: SVNTag=JBoss_4_2_3_GA date=200807181417)/JBossWeb-2.0<br />
+11:46:44,332 INFO  [[localhost]]             header=X-Powered-By=JSF/1.2<br />
+11:46:44,332 INFO  [[localhost]]             header=X-Powered-By=Servlet 2.4; JBoss-4.2.3.GA (build: SVNTag=JBoss_4_2_3_GA date=200807181417)/JBossWeb-2.0<br />
+11:46:44,332 INFO  [[localhost]]             header=X-Powered-By=JSF/1.2<br />
+11:46:44,332 INFO  [[localhost]]             header=Content-Type=application/pdf<br />
+11:46:44,332 INFO  [[localhost]]             header=Content-Length=48189<br />
+11:46:44,332 INFO  [[localhost]]             header=Date=Thu, 26 Aug 2010 09:46:44 GMT<br />
+11:46:44,332 INFO  [[localhost]]            message=null<br />
+11:46:44,332 INFO  [[localhost]]         remoteUser=admin<br />
+11:46:44,332 INFO  [[localhost]]             status=200<br />
+[/code]</p>

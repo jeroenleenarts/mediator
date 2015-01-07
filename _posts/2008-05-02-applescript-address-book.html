@@ -1,0 +1,35 @@
+---
+layout: post
+title: Adjust first names with AppleScript in an Address Book Group
+date: 2008-05-02 01:47:05.000000000 +02:00
+categories:
+- Mac OSX
+- Work
+tags:
+---
+<p>At my company the sysadmins provide a little service when putting all phone numbers of colleagues on my cell phone. Every colleague is prefixed with a dot. My car's carkit though lists all numbers grouped by alphabet. So this leads to like a couple hundred entries grouped under a single dot. Fortunatly I can sync my phone to my Apple's Address Book. When it's in there, the following little AppleScript allows me to change all first names starting with a dot to something without a dot.</p>
+<p>First I transfer all dot-prefixed entries to a special group, then this script runs the people in that group through a little check and adjustment when needed.</p>
+<p>(The syntax of AppleScript is a real pain.)</p>
+{% highlight AppleScript %}
+on lstripString(theText, trimString)
+	set x to count trimString
+	try
+		repeat while theText begins with the trimString
+			set theText to characters (x + 1) thru -1 of theText as text
+		end repeat
+	on error
+		return ""
+	end try
+	return theText
+end lstripStri
+<p>tell application "Address Book"
+	set infoSupporters to people of group "InfoSupport"
+	repeat with p in infoSupporters
+		if first name of p starts with "." then
+			set new_first_name to my lstripString(first name of p, ".")
+			set first name of p to new_first_name
+		end if
+	end repe
+<p>	display dialog "Done!"
+end tell
+{% endhighlight %}</p>

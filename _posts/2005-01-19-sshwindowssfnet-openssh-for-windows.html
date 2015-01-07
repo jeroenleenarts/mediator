@@ -1,0 +1,21 @@
+---
+layout: post
+title: 'sshwindows.sf.net: OpenSSH for Windows'
+date: 2005-01-19 21:47:44.000000000 +01:00
+categories:
+- Random thoughts
+tags:
+---
+<p><a href="http://sshwindows.sourceforge.net/">sshwindows.sf.net: OpenSSH for Windows</a></p>
+<p>Finally got around to setting up a SSH tunnel. I'm still running windows, but that'll change soon. Apple confirmed the shipment of my iMac.</p>
+<p>Anyway, setting up SSH has been a real pain in the ass, or perhaps I'm just stupid...</p>
+<p>Anyway, install the above on your windows box...<br />
+Go to the install directory...</p>
+<p>CD into the "bin" dir.<br />
+enter: mkgroup -l &gt;&gt; ..\etc\group<br />
+enter: mkpasswd -l -u "Your windows user name" &gt;&gt; ..\etc\passwd</p>
+<p>Be a bit carefull with the user you are exporting remotely...</p>
+<p>Now you can use any ssh client available with the mentioned user (PW same as in windows). Tunneling also works like a charm.<br />
+With the standard ssh client of sshwindows: ssh -L 80:[networkPrivateMachine]:80 [yourIp]<br />
+Now your can point a browser to your local machine (localhost). ssh tunnels it to the OpenSSH box at [yourIp] and forwards all request to [networkPrivateMachine] on your private network.</p>
+<p>Check the docs on the mentioned site for details.</p>

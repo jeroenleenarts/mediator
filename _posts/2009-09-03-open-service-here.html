@@ -1,0 +1,23 @@
+---
+layout: post
+title: Mac OSX Open Terminal Here Service
+date: 2009-09-03 23:00:02.000000000 +02:00
+categories:
+- Mac OSX
+tags:
+---
+<p>Mac OSX Snow Leopard has revived the Services menu.</p>
+<p>I've implemented a really simple Service called "Open Terminal Here". It's a small service which becomes available in the context menu of every file and folder in the Finder with an entry called "Open Terminal Here".</p>
+<p>It's function is really simple, it activated the Terminal application and changes the current directory to selected directory or the containing directory, depending whether you selected a file or folder.</p>
+<p>The linked zip file contains a file named: "Open Terminal Here.workflow"<br />
+If you would like to change the name appearing in your services menu, just change the name of the file to something else. make sure the extension remains the same. For example: "Any other Name.workflow".</p>
+<p>After you are happy with the services name, copy the resulting file to the directory "Library/Services" in your user's home directory. Now you can open a Terminal window at the location you've just selected, it works for multiple selections too.</p>
+<p>Here's the link to the zip file: <a href="http://blog.leenarts.net/?attachment_id=451" title="Open Terminal Here 0.3.zip">Open Terminal Here 0.3.zip</a></p>
+<p>Oh just a little tip, to open the current Terminal.app path you're at into a Finder window, just type "open ." followed by a return. (Yes, that's 4 characters, a space and finally a dot.)</p>
+<p>Some people have reported some issues while installing this service. Please see the comments for a workaround by j.g. Owen.</p>
+<p>Version 0.3:<br />
+-Fixed the multiple window problem (courtesy John-Michael Glenn)</p>
+<p>Version 0.2:<br />
+-should fix a localization problem.</p>
+<p>I've also created a SVN repository for this little bit of code: <a href="http://svn.leenarts.net/svn/opensource/Open%20Terminal%20Here/">http://leenarts.net/svn/opensource/Open%20Terminal%20Here/</a><br />
+When asked for a username and password, just enter empty strings.</p>

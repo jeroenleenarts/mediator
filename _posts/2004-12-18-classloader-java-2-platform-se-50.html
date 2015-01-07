@@ -1,0 +1,11 @@
+---
+layout: post
+title: ClassLoader (Java 2 Platform SE 5.0)
+date: 2004-12-18 01:11:14.000000000 +01:00
+categories:
+- Java
+tags:
+---
+<p><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/lang/ClassLoader.html#defineClass(java.lang.String,%20byte[],%20int,%20int)">ClassLoader .defineClass(...)(Java 2 Platform SE 5.0)</a></p>
+<p>Just been fooling around a bit. I like what the API docs say about the infamous classloader. Basicly, when I want to dynamicly load a class into my application, I can just do it myself with a custom classloader. I believe that when this classloader has been marked for collection that also all loaded classes of the custom classloader will be deleted from memory.</p>
+<p>Would be very nice when that would be true. I can imagine some nifty tricks with this. Like injecting code into the application while the app is running. Would be very usefull, especially in distributed scenario's. Or to enable changable runtime analysis code into a application. Perhaps it doesn't sound usefull of the bat, but it will score you some kudos on any project anyway.</p>

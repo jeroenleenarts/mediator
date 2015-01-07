@@ -1,0 +1,16 @@
+---
+layout: post
+title: -XX:-DontCompileHugeMethods
+date: 2010-05-26 23:03:28.000000000 +02:00
+categories:
+- Java
+- Work
+tags:
+---
+<p>Read some stuff today about huge methods and the JVM's JIT Compiler.</p>
+<p>The JIT proces detects hotspots in code. If a hotspot is detected (usually 1000 to 1500 hits depending on your platform and JVM version) the JIT process marks a method for compilation to machine instructions. After compilation, method invocations are generally crazy fast on a method since the JIT process had like a thousand times to see what generally happens during the execution of a method and can optimise accordingly. (So never ever use the Xcomp option on the JVM, it forces compilation from the start, but this is generally slower, because the compilation will not be optimized in any way.)</p>
+<p>The thing is, when performing this operation of marking methods for compilation there's a catch. An 8k byte code instructions catch to be exact. If a method in byte code contains more then 8000 byte code instructions it will never ever be marked for compilation, period. About 2500 lines of Java code should do the trick. But believe me, I've seen crazy fools create monsters methods of that magnitude.</p>
+<p>It gets even better though. When looking for methods to mark for compilation, the JIT process uses a call graph when doing it's magic work of granting methods the privilege of optimized compilation. And here comes the catch in that, if a big fat honking pile of 8k byte code is encountered in a method while walking the call graph, JIT says: "I aint touching that!". Thus any method called from that pile of poop not reachable in any other way through the call graph, will never ever feel the warm love of JIT optimized compilation.</p>
+<p>Now you could use the lovely "-XX:-DontCompileHugeMethods﻿" argument when invoking the JVM. But from what I've understand it's a bad thing to do, because amongst others it forces the JVM to go digging through those 8k wonders of human creativity.</p>
+<p>Other option is to just use your sane mind and round up and terminate the morons in your project creating these 8k monsters. It's good practice anyway to keep your methods small and task focussed in any object oriented language.</p>
+<p>The gist is, don't use "-XX:-DontCompileHugeMethods﻿". Go bananas during a code review whenever you find any method which is too big for comfort. Let's just say that the <a href="http://checkstyle.sourceforge.net/config_sizes.html">default statement count suggested by checkstyle</a> is a good one. So any method or constructor above 30 statements in length should be cause for investigation during a code review.</p>

@@ -1,0 +1,20 @@
+---
+layout: post
+title: OS X's Objective-C garbage collection
+date: 2006-05-11 23:19:00.000000000 +02:00
+categories:
+- Mac OSX
+- Objective C
+tags:
+---
+<p>Lately it's been buzzing around on <a href="http://theocacao.com/document.page/261">various blogs</a> that in the next OS X release, Leopard, Objective-C can use garbage collection. For those who've been following the introduction of environments like Java, .NET and all other environments with the sligthest whiff of managed memory have seen the same crap all before.</p>
+<p>Basicly there are two camps. Those that think automating memory mangement is a piece of crap and that anyone willing to use such "vulgar" mechanisms should be locked away carrying a straight jacket. And those that understand that it's a good thing since it save complexity on the developers part.</p>
+<p>Now this is stated a bit black and white. There's a lot of gray between the two opposites. But isn't it true that most applications are constrained by basic I/O speeds and user input rather then by the bit of extra work happening because of some memory reclaiming thread?</p>
+<p>Now I haven't gone into the details of Objective-C's memory management model yet. But based on my limited observations sofar, the memory management <b>is</b> optional. So if and when absolutely every last instruction counts, yes you can stick to manual management. And then it is absolutly justified to do so. But in all other cases where that extra bit of CPU is not really noticable, why bother with manually managing your memory when in most cases it is just a tedious error prone exercize anyway. Better to save the hours to add functionality then to comb through bits of code to find that nasty memory leak.</p>
+<p>I'd say hooray for garbage collection in Leopard and Objective-C.</p>
+<p>Some more blog entries on the subject:</p>
+<ul>
+<li><a href="http://theocacao.com/document.page/258">Theocacao - Garbage Collection and Objective-C</a></li>
+<li><a href="http://theocacao.com/document.page/261">Theocacao - Objective-C Garbage Collection: Take 2</a></li>
+<li><a href="http://arstechnica.com/staff/fatbits.ars/2006/5/6/3868">FatBits: The garbage man cometh</a></li>
+</ul>

@@ -1,0 +1,32 @@
+---
+layout: post
+title: Error installing Rails
+date: 2006-09-22 06:35:08.000000000 +02:00
+categories:
+- ruby
+tags:
+---
+<p><img id="image97" src="/assets/rails.png" alt="Ruby on Rails project logo" style="float:left; margin: 5px" />Recently I re-installed all my DarwinPorts. This included my Ruby and Rails installs. The first time I ever tried installing Rails I used RubyGems installed by DarwinPorts and it worked without a problem. The second time didn't went so smooth. It appears that the rb-rubygems package of DarwinPorts is FUBAR or something.</p>
+<p>For those trying to get Ruby on Rails running on OSX with DarwinPorts/MacPorts: Watch out for this error:</p>
+<pre>
+Jeroen:~ jeroen$ sudo gem install rails
+Password:
+/opt/local/lib/ruby/vendor_ruby/1.8/rubygems/custom_require.rb:27:in `gem_original_require': \
+        no such file to load -- sources (LoadError)
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/remote_installer.rb:462:in \
+                `sources'
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/remote_installer.rb:472:in \
+                `source_index_hash'
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/remote_installer.rb:436:in `install'
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/gem_commands.rb:258:in `execute'
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/gem_commands.rb:220:in `each'
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/gem_commands.rb:220:in `execute'
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/command.rb:69:in `invoke'
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/cmd_manager.rb:117:in `process_args'
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/cmd_manager.rb:88:in `run'
+        from /opt/local/lib/ruby/vendor_ruby/1.8/rubygems/gem_runner.rb:29:in `run'
+        from /opt/local/bin/gem:23
+</pre>
+<p>I've ran into this one. The problem? Quite simple to solve. It seems that the DarwinPorts package <code>sudo port install rb-rubygems</code> should not be used anymore according to some people. Installing rails by using the rubygems installed by DarwinPorts messes things up a little. Try <code>sudo port port install rb-rails</code> instead. It worked for me. Only drawback is, you didn't install rails with rubygems and you have to remember to install updates and extra gems by using DarwinPorts.</p>
+<p><b>Edit:</b> <a href="http://darwinports.opendarwin.org/">DarwinPorts</a> is now renamed to <a href="http://www.macports.org/">MacPorts</a>. An existing DarwinPorts install will transparently update to MacPorts by running "sudo port selfupdate".</p>

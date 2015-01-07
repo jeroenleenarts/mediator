@@ -1,0 +1,26 @@
+---
+layout: post
+title: 'J-Spring: SOA, it''s a hard knock life'
+date: 2009-04-15 13:23:00.000000000 +02:00
+categories:
+- Java
+- NL-Jug
+- Work
+tags:
+---
+<p><a href="http://adi.atosoriginblog.nl/weblogger/45/">Tijs Rademakers</a> has a presentation on SOAs in practice. What problems do you encounter when implementing a SOA. After having discussed the advantages of SOAs he dives into the <a href="http://apsblog.burtongroup.com/2009/01/soa-is-dead-long-live-services.html">rumours that SOA is dead</a>. But hey, services are the future. <a href="http://www.burtongroup.com/AboutUs/Bios/PrintBio.aspx?Id=94">Anne Thomas Manes</a> has a contradicting statement.</p>
+<p>It is true that SOA has not proven to reduce costs. SOA projects take longer to implement because the services have to be implemented in a re-usable way. Often a SOA project boils down to an ESB selection, but is that deciding on what SOA architecture you want to implement? Discussions often focus on the implementing technology and not the underlying SOA architecture.</p>
+<p>Tijs introduces a case study. A <a href="http://en.wikipedia.org/wiki/Cobol">COBOL</a> applications of 14500 function points. It has been transferred to a SOA based architecture. A lot of companies belief that implementing everything as a web service is the same as implementing a service architecture. But SOA is more then that. While a bottom up approach might work, a top down view is important as well. Implementing reusable services is only possible if you take the surrounding architectural landscape into account. A canonical data model is important to facilitate a standardised data language for all services.</p>
+<p>SOA architectures are built according to a plan, but the legacy application being replaced is also often built based on a clear plan. Code is reused is built according to an architecture of days gone by.</p>
+<p>Is the entire web of systems and services defined within a SOA application really that much simpler then a legacy system?</p>
+<p>Is a SOA something you should do? And if so, what technologies should you use? Is an ESB a requirement or any of the other standards. (SOAP,WSDL,WS-,SCA,OSGi,etc.)</p>
+<p>Implementing a service is easy. Just add @WebService. A top down and bottom up is available. The same goes for REST services with Jax-RS.</p>
+<p>Java - XML binding can be challenging. You often need to write some custom code. This is due to JAXB v1 API. But there are better frameworks available. JAXB2 JIBD XSTREAM. New languages show the way to the future. Some aspects should be ported to Java.</p>
+<p>It's a bit of a strange presentation. First it's all SOA, now we're talking Groovy??</p>
+<p><a href="http://www.ibm.com/developerworks/library/specification/ws-sca/">SCA</a> is a good option, with it's declarative configuration and flexibility in choosing the actual implementing technology. I should read up on SCA a bit.</p>
+<p><a href="http://www.osgi.org/">OSGi</a> is also a very impressive platform. A lot of implementations using OSGi are emerging. It supports all the service oriented functionality. <a href="http://wso2.org/projects/carbon">Wso2's Carbon</a> is a nice example.</p>
+<p>Next topic, does SOA entail the usage of an <a href="http://en.wikipedia.org/wiki/Enterprise_service_bus">ESB</a>? An ESB is a platform you can use to implement a SOA. but it's just a platform with a high risk of vendor lock-in, under the hood it's all custom proprietary. You always need custom code to integrate an ESB. Vendors push ESBs as the way to implement a SOA, but it is often nothing more then a tool to create a nasty lock-in. An ESB does a lot, use it, but be careful for the lock-in trap.</p>
+<p>An ESB often only hides a lot of shit on an overview architecture slide.</p>
+<p>An alternative would be a sort of <a href="http://www.infoq.com/presentations/webber-guerilla-soa">guerilla SOA</a>. Unlock lots of systems with restful services. Then don't define a lot of rules and let it grow. All you need at a certain point you need a good way to resolve the locations of services.</p>
+<p>In the end you need business level support to be able to do a service oriented approach. Also business has to be made aware of the initial impact of a service approach. But also of the long term benefits. Consolidation of services and systems is recommended. But never forget that business often steers on short term goals while they should look at long term goals.</p>
+<p><img src="/assets/img-0080.jpg" alt="IMG_0080.JPG" border="0" width="300" height="225" /></p>

@@ -1,0 +1,26 @@
+---
+layout: post
+title: 'J-Spring: java programming in a multi core world'
+date: 2009-04-15 10:18:24.000000000 +02:00
+categories:
+- Java
+- NL-Jug
+- Work
+tags:
+---
+<p><a href="http://www.angelikalanger.com/">Angelika Langer</a> has a talk about multi threaded programming in a multi processor environment.</p>
+<p>Due to CPU developments new issues arise in current applications when newer CPUs are used. The JVM now has more and more functionality to support multithreaded/multicore environment. <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/package-summary.html">The java.concurrent package. Available since java 5.</a></p>
+<p>The new CPUs demand a-synchronous approach. Therefor the java NIO api was born. In <a href="https://jdk7.dev.java.net/">java 7</a> they are planning for a-sync file io.</p>
+<p><a href="http://java.sun.com/products/jms/">JMS</a> is a result of the need for a-sync operation.</p>
+<p>Ajax results in more and longer running network operations. Long lived http requests results in more overhead in the io layer of the server.</p>
+<p>The <a href="http://en.wikipedia.org/wiki/Java_Memory_Model">java memory model</a> is an abstraction of the underlying hardware memory models. It addresses atomicity, visibility and ordering. Angelika details some examples.</p>
+<p>So far a very high level overview.</p>
+<p>Sequential consistency does not exist in the JVM. It's a mental model used to teach multithreaded programming, it is not guaranteed by the JVM. You have to use language construct to enforce proper visibility. Synchronisation ensures proper execution order and prevent ing half written objects and variables. To ensure a proper execution it is required that you force updating main memory by using the volatile keyword.</p>
+<p>Visibility is ensured when using explicit synchronisation, thread start and termination, read/writes of volatiles and first access of a final field.</p>
+<p>Volatile is not transitive, it is only applicable for the reference marked as volatile. She shows an example of the non volatile field. But since <a href="http://java.sun.com/javase/6/">Java 6</a> there are some changes to the memory model. Changes to members of a volatile reference are propagated when they're performed before modifying the volatile reference itself. Complicated stuff that breaks easily.</p>
+<p>Volatile is cheaper then synchronisation, but still there's a cost.</p>
+<p>Amdahl's law. Look it up, good stuff. Double the hardware will not double the performance. It depends on the amount of parallel execution paths.</p>
+<p>It is an easy trap to think that  having a queue for inter process communication will not contain blocking behaviour. Try to have the absolute minimum of synchronous code if performance is key.</p>
+<p>There are techniques to avoid serialisation. Use immutable copies, use thread local objects instead of shared objects. Lock free programming gaining popularity, volatile declaration is still required though. Compare and Swap is an example of a technique to allow lock free programming. There are some things on the horizon, like transactional memory.</p>
+<p><img src="/assets/img-0075.jpg" alt="IMG_0075.JPG" border="0" width="300" height="225" /><br />
+<img src="/assets/img-0076.jpg" alt="IMG_0076.JPG" border="0" width="300" height="225" /></p>

@@ -1,0 +1,27 @@
+---
+layout: post
+title: DTrace in OS-X
+date: 2006-08-15 13:26:31.000000000 +02:00
+categories:
+- Mac OSX
+tags:
+---
+<p>While I'm not feeling very good today, I have a headache again, one can only stay in bed for so long. So while browsing around a bit (<a href="http://www.opensolaris.org/os/">http://www.opensolaris.org/os/</a> to be exact).</p>
+<p>I stumbled upon some very positive news from the Apple Word Wide Developers Conference (WWDC). According to <a href="http://www.zdnet.com.au/news/software/soa/Mac_OS_X_Leopard_gets_Sun_s_DTrace/0,2000061733,39265767,00.htm">ZD-NET Australia</a> the next release of Apple OS-X, Leopard, will support DTrance. It also gets an Apple work-over, so it will probably look and feel good too. Take a look at the bottom of <a href="http://www.apple.com/macosx/leopard/xcode.html">Apple's Leopard preview page</a>. Apple will include a tool called XRay which will leverage DTrace to provide its functionality. Knowing Apple this will probably mean that the original tool will be included as well.</p>
+<p>For those who are wondering what DTrace is. Well, it's a comprehensive dynamic tracing framework. DTrace provides a powerful infrastructure to permit administrators, developers, and service personnel to concisely answer arbitrary questions about the behaviour of the operating system and user programs.</p>
+<p>"What?" you might say... well it comes down to this:<br />
+For Users:</p>
+<ul>
+<li>dynamically enable and manage thousands of probes</li>
+<li>dynamically associate predicates and actions with probes</li>
+<li>dynamically manage trace buffers and probe overhead</li>
+<li>examine trace data from a live system or from a system crash dump</li>
+</ul>
+<p>For Developers:</p>
+<ul>
+<li>implement new trace data providers that plug into DTrace</li>
+<li>implement trace data consumers that provide data display</li>
+<li>implement tools that configure DTrace probes</li>
+</ul>
+<p><small>(Source: <a href="http://www.opensolaris.org/os/community/dtrace/">http://www.opensolaris.org/os/community/dtrace/</a>, you can find a more detailed description of DTrace there as well.)</small></p>
+<p>Let's just say, seeing is believing. Once you see DTrace in action, you're hooked.</p>

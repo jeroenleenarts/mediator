@@ -1,0 +1,14 @@
+---
+layout: post
+title: Running SubVersion svnserve on Mac OS X
+date: 2006-06-08 14:03:00.000000000 +02:00
+categories:
+- Howto
+- Mac OSX
+tags:
+---
+<p>In my <a href="http://blog.leenarts.net/2006/06/04/someone-asked-for-subversion-on-a-mac/">previous entry</a> I posted how to get SubVersion on a Mac.</p>
+<p>One of the things people start asking after knowing how to run the client, is how to run a server. Most people know that svnserve is a good option and get a repository going with that. Check <a href="http://svnbook.red-bean.com/">the free online book I mentioned</a> in my previous post to get a feel for how to set up a repository using <code>svnadmin</code>.</p>
+<p>But now you want that pesky svnserve to launch on startup. Best candidate to handle that for you on a mac is launchd.</p>
+<p>But it is a bit of an involving procedure to go though. Anyway, <a href="http://marc.baffl.co.uk/stuff.php#svnserv-plist">this is the link</a> that got me going.</p>
+<p>Do read the entry at the <a href="http://marc.baffl.co.uk/stuff.php#svnserv-plist">link</a> completely. Doing so will save you lots of headaches.</p>

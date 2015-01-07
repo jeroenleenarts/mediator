@@ -1,0 +1,43 @@
+---
+layout: post
+title: Eclipse APIs and Java 5
+date: 2007-03-05 22:55:51.000000000 +01:00
+categories:
+- EclipseCon
+tags:
+---
+<p>My kickoff of the week was a session hosted by Boris Bokowski, Jim des<br />
+Rivieres and John Arthorne.</p>
+<p>They started a session which was a bit different from what I expected. But<br />
+in the end it was a very interesting session about the aspects of proper<br />
+API design. The whole session revolved around the effects of introducing<br />
+Java 5 features into an API.</p>
+<p>After a general introduction on API design with key statements like:</p>
+<ul>
+<li>Language used in API is important. (API means public interfaces along<br />
+with it's documentation and specification)</li>
+<li>Start with a minimal API, opening up "doors" is easy. Closing them is<br />
+a royal pain.</li>
+<li>Watch out for binary compatibility between releases built with<br />
+different compilers.</li>
+</ul>
+<p>After this general intro it started of with some Java 5 bashing. :)</p>
+<ul>
+<li>Auto boxing is bad, lots of temporary objects.</li>
+<li>Variable arity methods are bad. They obscure the method call signs<br />
+actually being called. Especially when combined with overloading.</li>
+<li>Binary compatibility breakage is the bane of your API life.</li>
+</ul>
+<p>The thing is, Java 5 contains loads of cool features, but usage of these<br />
+features can cause binary incompatibility. Which requires your API users<br />
+to do full rebuilds. Something which you want to avoid when bringing a<br />
+version update to your users. Some things ca be done without causing<br />
+binary incompatibility.</p>
+<p>While I didn't expect the content provided, it was a very interesting<br />
+subject. Personally I've never been in a situation where a full rebuild<br />
+was a problem. But then again all I know is enterprise development. Alle<br />
+major new language features of Java 5 were discussed. I've learned a lot<br />
+in this session, I wonder when and if I will ever need this knowledge. But<br />
+I had provided me with insights into the problems API providers face.</p>
+<p>Check here for the session <a href="http://www.eclipsecon.org/2007/index.php?page=sub/&amp;id=3626">description<br />
+and speaker bios</a>. Here are the <a href="http://eclipsezilla.eclipsecon.org/php/attachment.php?bugid=3626">slides</a>.</p>

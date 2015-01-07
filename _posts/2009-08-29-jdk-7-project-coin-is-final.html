@@ -1,0 +1,59 @@
+---
+layout: post
+title: JDK 7 - Project Coin is final
+date: 2009-08-29 11:13:16.000000000 +02:00
+categories:
+- Java
+tags:
+- JDK7 Project Coin
+---
+<p>Friday Joseph Darcy announced through <a href="http://blogs.sun.com/darcy/entry/project_coin_final_five">a blog post</a> that <a href="http://openjdk.java.net/projects/coin/">Project Coin</a> is final.</p>
+<p>Project Coin is just one of the changes coming to JDK 7. But, since the changes in Project Coin are all small changes to the Java language, every single Java developer will have to deal with these coming changes.</p>
+<ul>
+<li>It's looking like we can use <b>Strings in switch statements</b>:<br />
+[code language="java"]<br />
+static boolean booleanFromString(String s) {<br />
+  switch(s) {<br />
+    case &quot;true&quot;:<br />
+      return true;<br />
+    case &quot;false&quot;:<br />
+      return false;<br />
+  }<br />
+  throw new IllegalArgumentException(s);<br />
+}  [/code]</li>
+<li><b>Automated Resource Blocks</b>, Josh Bloch proposed a construct like the one below:<br />
+[code language="java"]try (BufferedReader br = new BufferedReader(new FileReader(path)) {<br />
+  return br.readLine();<br />
+}[/code]<br />
+instead of:</p>
+<p>[code language="java"] BufferedReader br = new BufferedReader(new FileReader(path));<br />
+ try {<br />
+   return br.readLine();<br />
+ } finally {<br />
+   br.close();<br />
+ }[/code]
+</li>
+<li>
+<b>Improved Type Inference</b>, the diamond operator. Instead of:<br />
+[code language="java"]Map &lt;String, List &lt;String&gt; anagrams = new HashMap &lt;String, List &lt;String&gt;();[/code]<br />
+you can do:<br />
+[code language="java"]Map &lt;String, List &lt;String&gt; anagrams = new HashMap &lt;&gt;();[/code]</li>
+<li><b>Simplified VARARG method invocation</b>:<br />
+[code language="java"]static &lt;T&gt; List &lt;T&gt; asList(T... elements) { ... }</p>
+<p>static List &lt;Callable &lt;String&gt; stringFactories() {<br />
+  Callable &lt;String&gt; a, b, c;<br />
+  ...<br />
+  *// Warning: ** uses unchecked or unsafe operations *<br />
+  return asList(a, b, c);<br />
+}[/code]</p>
+<p>After this change:<br />
+[code language="java"]*// Warning: ** enables unsafe generic array creation *<br />
+static &lt;T&gt; List &lt;T&gt; asList(T... elements) { ... }</p>
+<p>static List &lt;Callable &lt;String&gt; stringFactories() {<br />
+  Callable &lt;String&gt; a, b, c;<br />
+  ...<br />
+  return asList(a, b, c);<br />
+}[/code]</li>
+<li>Something with <b>better literal integers</b>, can't seem to find the details at the moment.</li>
+<li>And <b>language support for <a href="http://jcp.org/en/jsr/detail?id=292">JSR 292</a></b>. But this one is only interesting when dealing with dynamic languages.</li>
+</ul>

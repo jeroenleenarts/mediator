@@ -1,0 +1,14 @@
+---
+layout: post
+title: Looking into integrating ANTLR v3 with javax.script
+date: 2008-02-13 00:09:30.000000000 +01:00
+categories:
+- Java
+- Work
+tags:
+---
+<p>I've been looking into integrating <a href="http://www.antlr.org">ANTLR v3</a> with <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">javax.script</a>. It should all be pretty simple, but I have not implemented a simple mock-up yet to test my conclusions.</p>
+<p>Then I remembered a ex-colleague of mine who wrote a Dutch article about integrating a JavaCC generated language with javax.script.</p>
+<p class="download"><a href="http://www.infosupport.nl/Domeinspecifieke%20talen%20met%20Java%20CC%20en%20JSR%20223">Dutch article about JavaCC and javax.script</a></p>
+<p>Technically that does not look that hard at all.</p>
+<p>The hardest thing I'm running into right now is outlining a subject as a little case study. I am also wondering about what problems might arise when trying to integrate a generated parser within the confines of an application. I can think up a number of ways to connect a parser to an application's in memory model. Should I try to detail logic in my parser grammar or should I unlock my memory model with a bit of dedicated API for the parser as to keep inline Java action blocks to a minimum.</p>

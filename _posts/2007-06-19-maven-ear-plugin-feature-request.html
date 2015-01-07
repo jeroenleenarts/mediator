@@ -1,0 +1,22 @@
+---
+layout: post
+title: Maven Ear plugin feature request
+date: 2007-06-19 14:30:03.000000000 +02:00
+categories:
+- Java
+- Maven 2
+tags:
+---
+<p>I don't know about you guys, but I really need to be able to have Maven generate id's on module elements in EAR application.xml's.</p>
+<p>The result should sort of look like this:</p>
+<p>[code='xml']<?xml version="1.0" encoding="UTF-8"?><br />
+<!DOCTYPE application PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" "http://java.sun.com/dtd/application_1_3.dtd"><br />
+<application><br />
+<display-name>my-ear</display-name><br />
+<module id="An_maven_generated_identifier."><br />
+<ejb>My_EJB.jar</ejb><br />
+</module><br />
+</application><br />
+[/code]</p>
+<p>This could be done by allowing an extra element on the <a href="http://maven.apache.org/plugins/maven-ear-plugin/modules.html">module configuration section</a> for the maven-ear-plugin.</p>
+<p><a href="http://jira.codehaus.org/browse/MEAR-35">So place your votes here...</a> ... if you agree.</p>

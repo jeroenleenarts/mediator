@@ -1,0 +1,37 @@
+---
+layout: post
+title: 'J-Spring: JEE 6 and JavaFX'
+date: 2009-04-15 09:16:41.000000000 +02:00
+categories:
+- Java
+- NL-Jug
+- Work
+tags:
+---
+<p><a href="http://blogs.infosupport.com/blogs/paul_bakker/default.aspx">Paul Bakker</a> kicks of. He'll talk about coupling <a href="http://www.sun.com/software/javafx/">JavaFX</a> to <a href="http://jcp.org/en/jsr/detail?id=316">JEE 6</a>. He'll do this by using <a href="https://jsr311.dev.java.net/">Jax-RS</a>.</p>
+<p> He mentions the strong points of JavaFX. He also mentions the drawbacks of JavaFX too, there are no UI components yet.   </p>
+<p>JavaFX is a completely new language targeted at the RIA platforms. Silverlight, Flex and Flash.</p>
+<p>He goes on to describe the relevant parts of the new JEE6 spec. Especially the web profile will be an interesting part of the spec. New versions of various API's will be released. Jax-RS is interesting in the context of this talk.</p>
+<p>Download <a href="https://glassfish.dev.java.net/">Glassfish</a> v3 to start with Jee 6. Everything will be deployed as war files.</p>
+<p>He describes the architecture of the demo application. He also implemented a desktop JavaFX application as well.</p>
+<p>He will show a demo now.... ah too bad his vm Vista image is stalled. Hope he has more luck later.</p>
+<p>JSF 2.0 highlights:</p>
+<ul>
+<li>Facelets</li>
+<li>Annotation support</li>
+<li>Ajax support</li>
+<li>Resource loading</li>
+<li>Project stages</li>
+</ul>
+<p>Javafx runs in an applet in a browser or as a desktop application. The applet can communicate through javascript. Hope this works better then the time I tried to integrate an applet through javascript.</p>
+<p>JavaFX will be used as a rich control on the web page.</p>
+<p>Put a link here to the <a href="http://java.sun.com/javafx/1/docs/api/javafx.stage/javafx.stage.AppletStageExtension.html">appletstageextension api</a>. Also look for <a href="https://jdk6.dev.java.net/plugin2/liveconnect/">api to interop between javascript and java (aka. LiveConnect)</a>. Paul shows how in a NetBeans window and a live example.</p>
+<p>Next up a little info on how to integrate an Applet within your web application. Do not hardcore the urls, let the applet ask for the server address tom the current context. Look for <a href="http://java.sun.com/javafx/1.1/docs/api/javafx.lang/javafx.lang.FX.html">something called codebase</a>. Be sure to expand the method called "getProperty(java.lang.String key)".</p>
+<p>Demo time in the Vista VM again. Failed due to windows defender this time. Poor Paul, I can tell he's bummed about it.</p>
+<p>Some info on how to work with JSF @ManagedProperty and @PostConstruct. Usageof the <a href="http://java.sun.com/javase/6/docs/technotes/guides/jweb/deployment_advice.html#deplToolkit">javafx javascript</a> method is shown, it loads an applet into your web page with a single javascript call.</p>
+<p><a href="http://code.google.com/p/jfxtras/">JFXtras</a> is a project that fills some of the gaps in the current javafx implementation. Code of the <a href="http://learnjavafx.typepad.com/weblog/2009/02/miglayout-comes-to-javafx.html">MigLayout</a> in JavaFX is shown.</p>
+<p>Now Jax-RS is discussed. REST is discussed. Looks simple to implement with Jax-RS.</p>
+<p>Now his laptop seems to have died completely. Ah it works again. But now his remote is acting up a bit. Lot of bad luck for Paul today, but he remains well composed and continuos his talk.</p>
+<p>How to use light ejbs, how to use jndi. Something new, global jndi, javafx web service api (Pull parser, XML and json supported, no soap support)</p>
+<p><a href="http://blog.leenarts.net/wp-content/uploads/2009/04/l-1600-1200-2720f715-a05d-4f14-b3be-64d14dec6e87.jpeg"><img src="/assets/l-1600-1200-2720f715-a05d-4f14-b3be-64d14dec6e87.jpeg" alt="" width="300" height="225" class="alignnone size-full wp-image-364" /></a></p>
+<p><img src="/assets/img-0072.jpg" alt="IMG_0072.JPG" border="0" width="300" height="225" /></p>

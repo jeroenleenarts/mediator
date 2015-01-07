@@ -1,0 +1,47 @@
+---
+layout: post
+title: I really ought to sleep...
+date: 2008-03-31 00:53:18.000000000 +02:00
+categories:
+- Random thoughts
+tags:
+---
+<p>I just wanted t see if I still knew how to write a quicksort by hand. Checked it against "Intruction to Algorithms, 2ND ed." afterwards and it actually checks out. :)</p>
+{% highlight Objective-C %}
+package net.leenarts.algorithms.quicksort;
+import java.util.Arrays;
+public class QuickSort {
+	public static void main(String[] args) {
+		int[] A = {3,8,5,9,2,7,4,6,2,9,1,4,2,7,5,4};
+		System.out.println(Arrays.toString(A));
+		doQuickSort(A, 0, A.length -1);
+	}
+	public static void doQuickSort(int[] A, int p, int r) {
+		if (p<r) {
+			int q = partition(A, p, r);
+			doQuickSort(A, p, q-1);
+			doQuickSort(A, q+1, r);
+		}
+	}
+	private static int partition (int[] A, int p, int r) {
+		System.out.println("p=" + p +" r=" + r +" A = " + Arrays.toString(A));
+		System.out.println();
+		int x = A[r];
+		int i = p -1;
+		for (int j = p; j <= r -1; j++) {
+			if (A[j] <= x) {
+				i++;
+				exchange(A, i, j);
+			}
+		}
+		exchange(A, i +1, r);
+		return i + 1;
+	}
+	private static void exchange(int[] A, int i, int j) {
+		int temp = A[i];
+		A[i] = A[j];
+		A[j] = temp;
+		System.out.println(Arrays.toString(A));
+	}
+}
+{% endhighlight %}

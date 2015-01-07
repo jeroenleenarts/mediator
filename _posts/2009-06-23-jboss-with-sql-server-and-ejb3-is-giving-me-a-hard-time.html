@@ -1,0 +1,33 @@
+---
+layout: post
+title: JBoss with SQL Server and EJB3 is giving me a hard time
+date: 2009-06-23 00:28:52.000000000 +02:00
+categories:
+- Java
+tags:
+- EJB3
+- JBoss
+- MSSQL
+---
+<p>Today I had a bit of a fuss with JBoss and SQL Server. For some reason, when I declare an entity with an Id field, the persistency layer tries to push a bad query to the database.</p>
+<p>Let me explain.</p>
+<p>I've got an entity sort of looking like this:<br />
+[code language="java"]<br />
+@Entity<br />
+public class Contract {</p>
+<p>@Id<br />
+@GeneratedValue(strategy = GenerationType.Identity)<br />
+private int contractId;<br />
+...<br />
+}<br />
+[/code]</p>
+<p>When tryin to persist this through the entity manager SQL trace on MS SQL show a query somewhat looking like:</p>
+<p>[code language="sql"]<br />
+insert into Contract (contractid, ...) values (null, ...)<br />
+[/code]</p>
+<p>You see, a null value. Sounds reasonable, I didn't set any value on the contractid field. BUT the persistency layer should not try to insert anything into the contractid column, because MSSQL doesn't allow it. The above SQL results in a "DEFAULT or NULL are not allowed as explicit identity values." I'm not sure what to try next though, everywhere I looked on the internet, all examples boil down too: "Something similar should work in MS SQL too, but I haven't tested that..."</p>
+<p>Better luck tomorrow. For now, I googled my brains out trying to find anything helpfull.</p>
+<p>Anybody out there have any suggestions?</p>
+<p><b>Update on the next day:</b><br />
+It turns out that the problem was the dialect configured in the Hibernate properties in the persistence.xml. By default our development environment enters the right value for Hypersonic DB, while it should actually be like this: [code language="xml"]&lt;property name=&quot;hibernate.dialect&quot; value=&quot;org.hibernate.dialect.SQLServerDialect&quot;/&gt;[/code]</p>
+<p>And now it all works. A default SQL Server 2005 with JBoss and the latest MSSQL JDBC driver, all running EJB3.</p>

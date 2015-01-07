@@ -1,0 +1,28 @@
+---
+layout: post
+title: Design Patterns, Maven, Cruisecontrol, Java....
+date: 2004-12-17 17:58:34.000000000 +01:00
+categories:
+- M.Sc
+tags:
+---
+<p>I'm doing a M.sc program with the Open Universiteit Nederland besides my day job at a consultancy company. Currently I'm running a course called Dessign Patterns (now what would that be about). Because I also have to develop some software for it in conjunction with another student, I decided to ease the exchange of information a bit.</p>
+<p>I also think <a href="http://www.martinfowler.com/articles/continuousIntegration.html">continuous integration</a> is great, so why not combine everything and get some usefull handsone experience while at it. So I took some <a href="http://maven.apache.org/">Maven</a>, added some <a href="http://cruisecontrol.sourceforge.net/">CruiseControl</a>, mixed in <a href="http://jakarta.apache.org/tomcat/">Tomcat </a>and put it on <a href="http://subversion.tigris.org/">SubVersion</a>. Fortunatly the guy working with me on this course was able to provide the Subversion bit, by plugging it into his Apache httpd. All in all it took me a weekend to read up on all the docs. Then it was a matter of just configuring it all, starting it and crossing my fingers. After some final tweaks it's running quiet right. But I'll probably tweak it some more.</p>
+<p>Now why would I do all this for a simple course?</p>
+<ul>
+<li>First, to impress the examinator.</li>
+<li>Second to get some hands on experience with these tools, so that in the next project I run, someone actually has a clue about auto building software. My current project is getting along ok now, but I think it could be a lot better.</li>
+<li>And third, give a tech demo for my employer, write an article about it (because there are no short and sweet articles about this subject which are understandable for managers).
+</li>
+<li>And then finally fourth, try to do the presentation AGAIN for the Dutch Java User Group in front of say 100 people. And after all that is finished, tweak the article some more and get it published.</li>
+</ul>
+<p>Phew, talk about trying something farfetched. Did I mention I also want all that articlicle to give me some extra credit for my M.sc degree?</p>
+<p>Anyway, what all this gives me is this:</p>
+<ul>
+<li>My collegue and I have a single point of definition of our sourcecode, called a repository. (SubVersion)</li>
+<li>There is a process running which monitors the repository for changes. This process runs every 5 minutes. When either of us commits something to the repository the process picks this up and initiates a build. (The process is CruiseControl.)</li>
+<li>When a build is ran a lot of things get done. First the most recent changes are updated from the repository. Second, everything gets built. Third a lot of data is gathered about the current state of the code: metrics, unit tests results, unit test failures, changelog, developer activity. Fourth, all the data is formatted to a web page and published to a well known location. Fifth, an email message gets sent to me and my collegue. (All done by Maven with exception of the publish and mail action, this is done by CruiseControl.)
+  </li>
+</ul>
+<p> And yes!! All that is ran fully automated. Sounds cool, doesn't it? And the funny thing is that it's all relativly easy to set up. And all tools used are open-source and available free of charge from the internet. Offcourse a lot more gets done, but hey, if I'd mention everything, then this blog would take forever to write.</p>
+<p>(As you might have guesed, tech is great, software is even better.)</p>

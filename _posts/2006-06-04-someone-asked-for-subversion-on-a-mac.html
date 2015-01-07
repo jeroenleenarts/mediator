@@ -1,0 +1,31 @@
+---
+layout: post
+title: Someone asked for SubVersion on a Mac...
+date: 2006-06-04 01:06:00.000000000 +02:00
+categories:
+- Howto
+- Mac OSX
+tags:
+---
+<p>It seems someone going by the name <a href="http://www.wnas.nl/">Wilfred Nas</a> was <a href="http://blog.leenarts.net/2006/05/30/masters-of-the-merging-universe/">wondering how to install SubVersion on a Mac</a>.</p>
+<p>Well then, lets solve that "problem" shall we.<br />
+<!--more--><br />
+Basicly there are four ways to get SubVersion going on your Mac.</p>
+<ol>
+<li><a href="http://subversion.tigris.org/getting_subversion.html">Build it yourself...</a></li>
+<li><a href="http://pdb.finkproject.org/pdb/search.php?summary=svn">Fink</a></li>
+<li><a href="http://darwinports.opendarwin.org/ports/?by=name&amp;substr=subversion">DarwinPorts</a></li>
+<li><a href="http://metissian.com/projects/macosx/subversion/">Get something pre built</a>, <a href="http://subversion.tigris.org/project_packages.html">sanctioned by subversion</a> themselves (do scroll down a bit to the second option under Mac OS X)</li>
+</ol>
+<p>Lets see, for those wanting to do some hacking, choose option 1. If Fink sounds familiar, then go for a Fink install by choosing option 2, do choose the svn-ssl package, else you wont get encryption support. Those who are more familiar with DarwinPorts, go for option 3. And finaly for those that just want to get going with SubVersion (aka svn), go for option 4.</p>
+<p>Options 1, 2 and three are pretty simple for those who've done "that" before. Option 4 should be a blast too, just click a bit, wait a bit and you are done.</p>
+<p>After having installed SubVersion, make sure its working by opening a Terminal window. (Take a peak in "Application\Utilities" to find it.) And then type <code>svn&lt;enter&gt;</code>. You should see <code>svn help</code> apear on your screen.</p>
+<p>Now we've got SubVersion. Feels great doesn't it? But now, what to do with this über tool.</p>
+<p>Well for starters, <a href="http://svnbook.red-bean.com/">read this</a>, it's the <a href="http://svnbook.red-bean.com/">SubVersion bible</a>.</p>
+<p>Also when in Terminal, check the man pages for the various tools and try adding the word <code>help</code> as a parameter.</p>
+<p>But wait, I'm a Mac user, and you're a Mac user (because you've gotten this far). Now we want something squishy. We want pretty windows and buttons to click on. Well there are several options to choose. But I like <a href="http://www.lachoseinteractive.net/en/community/subversion/svnx/features/">SVNX</a> the most.</p>
+<p>Do note that practically all tools need the commandline tools installed in advance. Also you might have your svn executables installed in a non default location, so any decent SVN tool shoul provide a configuration option so you can specify where your executables are on your system. (Try a <code>which svn</code> in Terminal to find out where they are.</p>
+<p>If anybody prefers other graphical tooling, please feel free to post your opinion as a comment.</p>
+<p>And one word of caution when using subversion on a mac. The system harddrive on your mac and most other hard drives are probably formatted "case preserving, case insensitive". This can get nasty when using SubVersion from a Mac and other non-Mac systems. You could check in two files called "myFile" and "MyFile" on a non-mac system. (Notice the different casing of the letter "M".) And then try to check those files out on a mac. SVN will most likely start complaining, because although a mac preserves the case in the file name, it doesn't care which letter are small case or capital. To a mac it usually is all the same, so your pretty mac just starts overwriting. So steer clear of differentiating files by case alone. It's a bad practice anyway, eventhough those Perl hackers seem to like it sometimes, it's better not to do it.</p>
+<p>Last bit of info, when updating your SubVersion binaries, allways, and I really mean ALLWAYS, check the release notes when you are hosting your own repository. Up untill now it's been easy going to update SubVersion, but sometimes little things are important when updating.</p>
+<p>Have fun with SubVersion... :)</p>

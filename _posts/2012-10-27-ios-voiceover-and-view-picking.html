@@ -1,0 +1,19 @@
+---
+layout: post
+title: iOS - Voiceover and view picking
+date: 2012-10-27 09:23:21.000000000 +02:00
+categories:
+- Random thoughts
+tags:
+---
+<p>This is a reposting of a blog <a href="http://blog.xebia.com/2012/04/27/ios-voiceover-and-view-picking/">post I did on my employers blog</a>.</p>
+<p>Something that might interest the developers out there working with accessibility on iOS.</p>
+<p>If you have strange behavior, as in, being unable to (partially) pick an accessibility frame by just dragging your finger over the screen, I might be able to answer just why.</p>
+<p>As it turns out. VoiceOver and sub views being out of bounds of their parent's view bounds don't really mix.</p>
+<p><!--more-->
+<p>I've created an example showcasing this situation. Be careful of the view hierarchy being created.</p>
+<p>A plain view on the left with accessibility enabled and an accessibility label. A contained view on the top right. You'll see two views on top of each other. That's the contained one. A plain view on the bottom right. Both views on the right side are accessible and have an accessibility label set.</p>
+<p>Now the views on the right side have a tap gesture recognizer. Clicking on both of the views on the right side will move the respective view. Note that the top right view will be partially moved outside of the bounds of it's container view.</p>
+<p>The interesting part happens when you enable the accessibility inspector in the simulator. (It's under the general settings of the Simulator's settings app.) You are unable to pick the top right view outside it's container view, when it's been moved to the left. As in, the parts outside the container will not respond to an accessibility drag as you might visually expect it to.</p>
+<p>See the <a href="https://github.com/xebia/ios-DemoForBlog">source code https://github.com/xebia/ios-DemoForBlog</a> and try the example, the interesting bits about this example are all contained within the third tab of the application, it's the <a href="https://github.com/xebia/ios-DemoForBlog/blob/master/DemoForBlog/XSDThirdViewController.m">XSDThirdViewController</a> in the code.</p>
+<p>More tips will follow when I run into interesting little bits of iOS development knowledge.</p>

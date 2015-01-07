@@ -1,0 +1,13 @@
+---
+layout: post
+title: Liveconnect is pain, it seems...
+date: 2005-05-05 13:59:52.000000000 +02:00
+categories:
+- Java
+tags:
+---
+<p>My bank offers a web based application to access my account. With this I should be able to order money transfers and all kinds of things you normally do with a bank account.</p>
+<p>BUT, since OSX Tiger 10.4 it doesn't work anymore. I did some debugging last night and it appears to be someting related to liveconnect and Java. They're application uses a Java Applet to do some extra encryption over an SSL connection. The Applet itself is, as you can guess, obfuscated, so linking the debugger isn't all informative yet.</p>
+<p>Perhaps I should do some manual deobfuscating first, but that's to much work I think. :( If anybody is reading this and has some thoughts on this subject. Please by all means post a comment. It sucks that I have to use Opera browser on my mac to connect to my bank. Since Opera on the mac uses the 1.3 version of Java instead of 1.4 like all other browsers available on a mac, it seems to work.</p>
+<p>I allready found out that in a java 1.4 revision there was a fix for some vulnerability with live connect.  Sigh!!</p>
+<p>Anyway live connect is a mechanism with which javascript on your page can communicate with the java applet through method calls en vice versa.</p>

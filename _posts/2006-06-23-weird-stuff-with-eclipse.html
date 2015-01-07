@@ -1,0 +1,17 @@
+---
+layout: post
+title: Weird stuff with Eclipse...
+date: 2006-06-23 22:22:00.000000000 +02:00
+categories:
+- Eclipse
+- Java
+tags:
+---
+<p>Or: How to get your users <s>pissed</s> unhappy.</p>
+<p>Simple: Hack to span an Eclipse RCP screen accross more than one monitor. Don't ask me why, it wasn't my idea. I've just seen this in code somewhere.</p>
+<p>Here's how it works:</p>
+<p>Mess up the <a href="http://www.kickjava.com/src/org/eclipse/jface/window/Window.java.htm#580">Window.getInitialSize()</a> so it takes all your screen real estate into acount, you've got two displays 1200 pixels wide? Ok, then we make the initial size's width 2400. Don't forget to <s>mutilate</s> alter the <a href="http://www.kickjava.com/src/org/eclipse/jface/window/Window.java.htm#398">Window.constrainShellSize()</a> method accordingly, else Eclipse will act up a bit.  (How naughty.)</p>
+<p>Now comes the best part. make sure you <b>filter</b> any occurences of SWT.RESIZE when <a href="http://www.kickjava.com/src/org/eclipse/jface/window/Window.java.htm#976">Window.setShellStyle(int newShellStyle)</a> gets called. Yes I said <b>filter</b>. Imagine some gullable developer passing by who thinks restricting window resizing is an excelent end-user screw.</p>
+<p>Did I mention that all this was achieved by some aspectj crosscutting??</p>
+<p>In the end, it works, sort of. Maximizing is disabled and resizing is disabled. So you end up with a huge piece of <s>crap</s> window plastered all over your screen real estate. You see, users are just dumb people. Letting them decide how to set their window sizes can only result in trouble. Well, atleast that seems to be the idea.</p>
+<p>I hope you all got the point that I think the above is an "excellent" idea. (No, ofcourse I don't think the above is a good idea.)</p>

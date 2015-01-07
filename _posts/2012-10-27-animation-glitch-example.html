@@ -1,0 +1,39 @@
+---
+layout: post
+title: iOS - Animation glitch example
+date: 2012-10-27 09:19:01.000000000 +02:00
+categories:
+- Random thoughts
+tags:
+  _syntaxhighlighter_encoded: '1'
+---
+<p>This is a reposting of a blog <a href="http://blog.xebia.com/2012/04/27/animation-glitch-example/">post I did on my employers blog</a>.</p>
+<p>A short while ago we were running into an interesting animation glitch. The actual solution is quite simple.</p>
+<p>Here's what the glitch was about. A table view could be toggled into an edit mode. On performing this toggle a label would be animated out of the view and hidden. The strange thing was, that this label was resizing it's font size right the second before the actual animation started.</p>
+<p>Fortunately we were able to fix this problem.</p>
+<p><!--more-->
+<p>As it turned out, the actual label was a label with a dynamic font size. Check the "adjustsFontSizeToFitWidth" property on a UILabel.</p>
+<p>During the animation. The label was not only moved but also resized by just a few pixels.</p>
+<p>I've created an example demonstrating just this problem on the second view controller of my <a href="https://github.com/xebia/ios-DemoForBlog">example project at https://github.com/xebia/ios-DemoForBlog</a>.</p>
+<p>Check the <a href="https://github.com/xebia/ios-DemoForBlog/blob/master/DemoForBlog/XSDSecondViewController.m">file XSDSecondViewController</a> for details.</p>
+<p>The basic problem is shown in this code snippet: {% highlight Objective-C %}
+	-(IBAction) animateButtonPressed:(id)sender {
+    NSLog(@&amp;amp;quot;%@&amp;amp;quot;, sender);
+    [UIView animateWithDuration:2.0 animations:^{
+        CGRect frame = animatedLabel.frame;
+        if(frame.origin.x != 10) {
+            frame.origin.x = 10;
+        } else {
+            frame.origin.x = 100;
+        }
+        if (self.shouldGlitch) {
+            if (frame.size.width == 150.0) {
+                frame.size.width = 155.0;
+            } else {
+                frame.size.width = 150.0;
+            }
+        }
+        animatedLabel.frame = frame;
+    }];
+}{% endhighlight %}</p>
+<p>The shouldGlitch property is a BOOL toggled by an on screen switch. Download the code an try it, second tab after you start the application.</p>

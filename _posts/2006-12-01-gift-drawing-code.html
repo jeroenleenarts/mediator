@@ -1,0 +1,92 @@
+---
+layout: post
+title: Gift drawing code
+date: 2006-12-01 00:13:13.000000000 +01:00
+categories:
+- Java
+tags:
+---
+<p>In response to <a href="http://blogs.infosupport.com/martinw/archive/2006/11/29/Christmas-Algorithms.aspx">Martin Wolf's blog posting about a little bit of gift drawing code</a> I've hacked up a little piece of code in about 30 minutes to see if I could do better in Java 5.</p>
+<p>There is bound to be something wrong with it. (Let's see what we can find. :))</p>
+<p>[code='java']<br />
+package net.leenarts.sinterklaas;</p>
+<p>import java.io.BufferedReader;<br />
+import java.io.IOException;<br />
+import java.io.InputStreamReader;<br />
+import java.util.ArrayList;<br />
+import java.util.Arrays;<br />
+import java.util.Collections;<br />
+import java.util.Comparator;<br />
+import java.util.HashMap;<br />
+import java.util.List;<br />
+import java.util.Map;<br />
+import java.util.TreeMap;</p>
+<p>public class test {</p>
+<p>	/**<br />
+	 * @param args<br />
+	 * @throws IOException<br />
+	 */<br />
+	public static void main(String[] args) throws IOException {</p>
+<p>		// Do nothing with input.</p>
+<p>		BufferedReader sin = new BufferedReader(<br />
+				new InputStreamReader(System.in));</p>
+<p>		List<List<string>> names = new ArrayList<List<string>>();<br />
+		Map<String, List<string>> related = new HashMap<String, List<string>>();</p>
+<p>		System.out.println("Please enter names of people for the draw."<br />
+				+ "\nPeople"<br />
+				+ "\nentered on one line seperated by whitespace are"<br />
+				+ "\nmarked as related. Confirm entry by pressing the"<br />
+				+ "\nreturn key. Entering an empty line finishes the"<br />
+				+ "\nentry procedure.");<br />
+		for (String line = sin.readLine(); line != null && line.length() > 0; line = sin<br />
+				.readLine()) {<br />
+			// Cut input up to individuals, related to each other.<br />
+			List<string> relatives = Arrays.asList(line.split("\\s{1,}"));</p>
+<p>			// prevent doubles<br />
+			for (String relative : relatives) {<br />
+				if (names.contains(relative)) {<br />
+					System.out.println("The name \"" + relative<br />
+							+ "\" has already been entered,"<br />
+							+ " please try again.");<br />
+					continue;<br />
+				}<br />
+			}</p>
+<p>			// Store as relatives<br />
+			for (String relative : relatives) {<br />
+				related.put(relative, relatives);<br />
+			}</p>
+<p>			// And store the names<br />
+			names.add(relatives);<br />
+		}</p>
+<p>		Collections.sort(names, new Comparator<List<string>>() {<br />
+			public int compare(List<string> o1, List<string> o2) {<br />
+				if (o1.size() < o2.size()) {<br />
+					return 1;<br />
+				} else if (o1.size() > o2.size()) {<br />
+					return -1;<br />
+				}</p>
+<p>				return 0;<br />
+			}<br />
+		});</p>
+<p>		// Now to perform the draw<br />
+		List<string> receivers = new ArrayList<string>();<br />
+		for (List<string> nameList : names) {<br />
+			receivers.addAll(nameList);<br />
+		}<br />
+		List<string> namesList = new ArrayList<string>();<br />
+		namesList.addAll(receivers);</p>
+<p>		Map<String, String> result = new TreeMap<String, String>();</p>
+<p>		for (String name : namesList) {<br />
+			List<string> candidateReceivers = new ArrayList<string>(receivers);</p>
+<p>			// People are only allowed to draw<br />
+			// someone unrelated and not themselves.<br />
+			candidateReceivers.removeAll(related.get(name));</p>
+<p>			Collections.shuffle(candidateReceivers);</p>
+<p>			result.put(name, candidateReceivers.get(0));<br />
+			receivers.remove(candidateReceivers.get(0));<br />
+		}</p>
+<p>		System.out.println("Here are your results:");<br />
+		System.out.println(result);</p>
+<p>	}</p>
+<p>}<br />
+[/code]</string></string></string></string></string></string></string></string></string></string></string></string></string></string></string></p>

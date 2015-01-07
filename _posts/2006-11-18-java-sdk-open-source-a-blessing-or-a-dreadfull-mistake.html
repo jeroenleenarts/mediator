@@ -1,0 +1,28 @@
+---
+layout: post
+title: 'Java SDK open-source: a blessing or a dreadfull mistake...'
+date: 2006-11-18 17:09:42.000000000 +01:00
+categories:
+- Random thoughts
+tags:
+---
+<p><img src="/assets/openjdklogo.png" alt="OpenjdkLogo" title="" style="float: left; margin: 5px;" />Wow, it finally happened. Java is now officially open-source. First of all, I think it&#8217;s great to be able to take a peek under the hood of Java.</p>
+<p>Now there is a catch though. I&#8217;m not entirely sure, but it seems that it is JDK version 8 (!!) which is <a href="https://openjdk.dev.java.net/">available under an open-source license</a>. The sources and binaries of <a href="https://jdk6.dev.java.net/">JDK 6</a> and <a href="https://jdk7.dev.java.net/">JDK 7</a> can be downloaded, but they are licensed under the <a href="http://www.java.net/jrl.csp">JRL (Java Research License)</a>, which has some restrictions.</p>
+<p>To check it out, take a look <a href="https://openjdk.dev.java.net/servlets/ProjectSource">overhere</a>. Note the usage of username &#8220;guest&#8221;. Personally I have checked out using the command:<br />
+<code>svn checkout https://openjdk.dev.java.net/svn/openjdk openjdk --username guest</code><br />
+Yes, that&#8217;s without the trunk part. I will perform a chechout of the entire repository, including all branches and tags of the main project, hotspot project and the compiler project. That&#8217;s like, everything. After the checkout the source code tree is about 220 MBs in size. That&#8217;s a <strong>lot</strong> of code.</p>
+<p>Also note the usage of the GPL with the OpenSDK. Corporations need not worry though, The GPL license has an addendum called the <a href="http://www.gnu.org/software/classpath/license.html">classpath exception</a>, a GNU endorsed mechanism to allow linking of proprietary code to API code.</p>
+<p>Anyway: Is open-source java a good thing or a bad thing. There are a number of opinions:</p>
+<p>Pro: Open Source Java &#8230;</p>
+<ul>
+<li>&#8230; will speed up development and feature maturity.</li>
+<li>&#8230; will provide developers with the possibility to review the JVM/Compiler code and truly understand it&#8217;s workings.</li>
+<li>&#8230; will allow the Sun Java release to be integrated with true open-source Linux distributions.</li>
+</ul>
+<p>Con: Open Source Java &#8230;</p>
+<ul>
+<li>&#8230; will become a hindrance because of wild growth of JVM branches.</li>
+<li>&#8230; is not needed, we&#8217;ve got the JRL license, so we can already review the code.</li>
+<li>&#8230;, why join those overzealous fanatics, open-source is a pest that should be exterminated with all available measures. (Erh, right&#8230;)</li>
+</ul>
+<p>Of-course there are more arguments to be made in favor and against open-source Java. Personally I think it&#8217;s great. Fiddling with the code is not something for everybody. I took a stroll through the code the other night and yes it is intimidating, believe me. But because it is such an essential component to any Java runtime and development environment, I do think it is best when you have the source-code available. Also I don&#8217;t think there will be any wild fire like scenario with heaps of different Java SDKs available will happen any time soon. I do think certain people and organisations might provide their own extensions, much like J2EE server implementations do. But gross incompatibility, I don&#8217;t expect that. See, Sun is still the driving force behind the Java Community Process which defines the standards that a Java implementation has to comply to. So as long as there remains a single entity that defines the shape of Java today and in the future, we will all be all-right.</p>

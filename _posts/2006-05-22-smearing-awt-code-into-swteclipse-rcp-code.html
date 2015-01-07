@@ -1,0 +1,13 @@
+---
+layout: post
+title: Smearing AWT code into SWT/Eclipse RCP code...
+date: 2006-05-22 09:29:00.000000000 +02:00
+categories:
+- Eclipse
+- Java
+- Mac OSX
+tags:
+---
+<p>Nothing new to those using Linux or Windows. But for the Mac OSX developers there is some great news. Finally there seems to be a <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=67384">solution</a> on its way. Thanks to some changes in OSX it is impossible right now to run AWT code within a SWT based application from within the Eclipse JDT. Something going awfuly wrong with deadlocks and all between the AWT and SWT event handling threads. It has been one of the strongest arguments against using an Apple system for Java development.</p>
+<p>Credits to <a href="http://wbeaton.blogspot.com/2006/05/stretch-out-and-wait-or-dont.html">Wayne Beaton's blog entry</a> for mentioning this excellent news. I wouldn't have known otherwise. It seems that it is useful to put in radar reports when you come across something ugly in OSX. The Apple devs won't prioritize an issue when few reports come in on it. So if sh#t hits the fan when devving an Apple app. <a href="https://bugreport.apple.com/">Report!!</a></p>
+<p>Now if someone could convince Mr. Beaton to actually get a Mac, that would be great. Perhaps some of his Eclipse enthousiasm will rubb onto his Apple system usage. Eclipse is great, but Eclipse on a Mac, is even better. :P (Because even an Eclipse/SWT UI remains butt ugly on Windows.)</p>

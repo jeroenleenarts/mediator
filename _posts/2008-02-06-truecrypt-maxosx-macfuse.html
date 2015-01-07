@@ -1,0 +1,15 @@
+---
+layout: post
+title: TrueCrypt released for MacOSX, using MacFuse
+date: 2008-02-06 23:43:08.000000000 +01:00
+categories:
+- Mac OSX
+- Security
+tags:
+---
+<p>Yesterday <a title="TrueCrypt version history page" href="http://www.truecrypt.org/docs/?s=version-history">TrueCrypt version 5.0</a> has been released. Nothing special you might say, but then again, you might not be running Mac OSX. TrueCrypt has been released for the Mac as well. The cool thing about it is that it  uses <a title="MacFuse homepage" href="http://code.google.com/p/macfuse/">MacFuse</a>.</p>
+<p class="download"><a href="http://www.truecrypt.org/downloads.php">Download TrueCrypt here.</a><br />
+You will find several options suitable for your system.</p>
+<p>MacFuse is a kernel extension for the OSX operating system allowing mounting of file systems in user space. With MacFuse a user can mount a file system dynamically without needing super user privileges. MacFuse is based on the original <a title="original Fuse filesystem" href="http://fuse.sourceforge.net/">Fuse</a> kernel extension for Linux based operating systems. With MacFuse/Fuse you can do cool things like an mounting a remote file system over SSH, a <a href="http://osxbook.com/book/bonus/chapter11/grabfs/">screenshot file system</a> dynamically generating screen shots of all active windows on your desktop or just about any other piece of data that can be mashed in to a hierarchical layout or read/write NTFS file systems. You probably think this is boring. But the thing is, it's all dynamic. Without MacFuse I guess implementing TrueCrypt for Mac would have been a whole lot harder.</p>
+<p>With the release of the latest TrueCrypt using a secure portable drive is finally a decent option for me. Sure OS X already has the concept of secure DMG files. But those are kinda Mac only. And I have to be able to carry stuff between my Mac and several Windows machines.</p>
+<p class="important">One word of caution though, remember that you do need to make some form of back-up of all your encrypted data. Back-up the individual files or the entire encrypted disk image. <span style="text-decoration: line-through;">Because if only one bit falls over in your encrypted disk, the entire disk will be corrupted. </span>Correction supplied by Honza in the comments. The behaviour of TrueCrypt is more like a real hard drive. If a bit falls over, only the file containing the tainted section will fail.</p></p>

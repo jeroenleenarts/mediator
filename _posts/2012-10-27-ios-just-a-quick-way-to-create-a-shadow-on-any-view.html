@@ -1,0 +1,47 @@
+---
+layout: post
+title: iOS - Just a quick way to create a shadow on any view
+date: 2012-10-27 09:24:12.000000000 +02:00
+categories:
+- Random thoughts
+tags:
+---
+<p>This post is a reposting of a blog <a href="http://blog.xebia.com/2012/05/04/ios-just-a-quick-way-to-create-a-shadow-on-any-view/">post I did for my employer</a>.</p>
+<p>Sometimes you would want a shadow on a view.</p>
+<p>Easiest and quickest way is to just add it on the view's layer:
+{% highlight objective-c %}
+-(void)loadView {
+	CGRect frame = [[UIScreen mainScreen] applicationFrame];
+	self.view = [[UIView alloc] initWithFrame:frame];
+	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	self.view.backgroundColor = [UIColor blackColor];
+	UIView *glowView = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width /2 -10, frame.size.height /2 -30, 20, 60)];
+	glowView.autoresizingMask =
+		UIViewAutoresizingFlexibleBottomMargin |
+		UIViewAutoresizingFlexibleTopMargin |
+		UIViewAutoresizingFlexibleLeftMargin |
+		UIViewAutoresizingFlexibleRightMargin;
+	glowView.backgroundColor = [UIColor whiteColor];
+	[self.view addSubview:glowView];
+	//Setup the shadow on the view's CALayer.
+	CALayer *viewLayer = glowView.layer;
+	viewLayer.shadowOffset = CGSizeMake(0, 0);
+	viewLayer.shadowColor = [[UIColor yellowColor] CGColor];
+	viewLayer.shadowPath = [UIBezierPath bezierPathWithRect:glowView.bounds].CGPath;
+	viewLayer.shadowRadius = 10.0f;
+	viewLayer.shadowOpacity = 1.0f;
+	//Let's animate it while we're at it.
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"shadowOpacity"];
+	animation.duration = 0.5f;
+	animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+	animation.fromValue = [NSNumber numberWithFloat:1.0];
+	animation.toValue = [NSNumber numberWithFloat:0.0];
+	animation.autoreverses = YES;
+	animation.repeatCount = HUGE_VALF;
+	[viewLayer addAnimation:animation forKey:@"shadowOpacity"];
+}
+{% endhighlight %}
+
+</p>
+<p>I must admit, this is kind of basic stuff. But it seems a lot of people actually forget about the fact that all UIView subclasses are based on Core Animation CALayers.</p>
+<p>See the <a href="https://github.com/xebia/ios-DemoForBlog">source code</a> and try the example, the interesting bits about this example are all contained within the fourth tab of the application, it's the <a href="https://github.com/xebia/ios-DemoForBlog/blob/master/DemoForBlog/XSDFourthViewController.m">XSDFourthViewController</a> in the code.</p>

@@ -1,0 +1,59 @@
+---
+layout: post
+title: Apple Mail just really keeled over on me... I whacked reply to much...
+date: 2007-06-19 20:12:55.000000000 +02:00
+categories:
+- Mac OSX
+tags:
+---
+<p>I was trying to forward a message. One with loads and loads of replies. Really in the order of dozens of replies on replies.</p>
+<p>Aaaaanyway... I thought, what the heck I&apos;ll give Apple Mail some time.</p>
+<p>And there Apple Mail was munching away... ..on my internal memory that is!! After about 10 minutes or so Apple Dumped on me. Turns out the Kernel identified Apple Mail as a run-away procces. </p>
+<p>Luckily, I had taken a snapshot with the Activity Monitor...<br />
+Now look at that screwed call stack. Something was definatly going up the recursion tree.</p>
+<blockquote><p>Analysis of sampling pid 700 every 10.000000 milliseconds<br />
+Call graph:<br />
+    300 Thread_0f07<br />
+      300 0x94d19<br />
+        300 0x94df2<br />
+          300 NSApplicationMain<br />
+            300 -[NSApplication run]<br />
+              300 -[NSApplication nextEventMatchingMask:untilDate:inMode:dequeue:]<br />
+                300 _DPSNextEvent<br />
+                  300 BlockUntilNextEventMatchingListInMode<br />
+                    300 ReceiveNextEventCommon<br />
+                      300 RunCurrentEventLoopInMode<br />
+                        300 CFRunLoopRunInMode<br />
+                          300 CFRunLoopRunSpecific<br />
+                            300 __CFMachPortPerform<br />
+                              300 __NSFireMachPort<br />
+                                300 -[MainThread handlePortMessage:]<br />
+                                  300 _invokeInvocationRequest<br />
+                                    300 -[NSInvocation invoke]<br />
+                                      300 objc_msgSendv<br />
+                                        300 0x67fbd<br />
+                                          300 0x6a506<br />
+                                            300 0x6a5a5<br />
+                                              300 KWQKHTMLPart::setSelectionFromNone()<br />
+                                                300 khtml::Selection::Selection[in-charge](DOM::Position const&amp;, khtml::EAffinity)<br />
+                                                  300 khtml::Selection::validate(khtml::ETextGranularity)<br />
+                                                    300 KHTMLView::layout()<br />
+                                                      300 khtml::RenderCanvas::layout()<br />
+                                                        300 khtml::RenderBlock::layout()<br />
+                                                          300 khtml::RenderBlock::layoutBlock(bool)<br />
+                                                            300 khtml::RenderBlock::layoutBlockChildren(bool)<br />
+                                                              300 khtml::RenderBlock::layout()<br />
+                                                                300 khtml::RenderBlock::layoutBlock(bool)<br />
+                                                                  300 khtml::RenderBlock::layoutBlockChildren(bool)<br />
+                                                                    300 khtml::RenderBlock::layout()<br />
+                                                                      300 khtml::RenderBlock::layoutBlock(bool)<br />
+                                                                        300 khtml::RenderBlock::layoutBlockChildren(bool)<br />
+                                                                          300 khtml::RenderBlock::layout()<br />
+                                                                            300 khtml::RenderBlock::layoutBlock(bool)<br />
+                                                                              300 khtml::RenderBlock::layoutBlockChildren(bool)<br />
+                                                                                300 khtml::RenderBlock::layout()<br />
+                                                                                  300 khtml::RenderBlock::layoutBlock(bool)<br />
+                                                                                    300 khtml::RenderBlock::layoutBlockChildren(bool)<br />
+                                                                                      300 khtml::RenderBlock::layout()<br />
+etc, etc, etc... (You get the idea here?)</p>
+<p>How I resolved this you say? Well, the weird thing was that Apple Mail was able to start and just show me the offending mail. Only when I tried forwarding OR replying things got ugly. I went into the Mail folder in my Library to VI my way out of it. As in locate the emlx file of that particular mail and &quot;dd&quot; the crap out of it to cut it down to size a bit. Then everything worked again in Apple Mail. All things went sunny again. (I do have the original message lurking on my pop box. So if any OG Apple engineer wants to look at it. Pleeeeeeease do contact me.</p></blockquote>

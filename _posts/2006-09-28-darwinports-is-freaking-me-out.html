@@ -1,0 +1,18 @@
+---
+layout: post
+title: Darwinports is freaking me out!!
+date: 2006-09-28 21:57:56.000000000 +02:00
+categories:
+- Mac OSX
+- rails
+- ruby
+tags:
+---
+<p><img id="image97" src="/assets/rails.png" alt="Ruby on Rails project logo" style="float:left; margin: 5px" />Man, am I having hard times with Rails and <s><a href="http://darwinports.opendarwin.org/">DarwinPorts</a></s> <a href="http://macports.org">MacPorts</a> or what? The strangest things keep happening. My Rails install broke down <em>again</em>. Imagine my frustration. I&#8217;ve been messing around with it for a few days now. And trust me, nothing wrong with rails. This time it was an incomming update on a support library called <em><a href="http://www.gnu.org/software/gettext/">gettext</a></em>. <strong>Argh!!</strong> On itself nothing wrong with updates, and that stuff breaks because of it, fine. But not all in one week please.</p>
+<p>In hindsight the fix was real simple.</p>
+<ul>
+<li>sudo port uninstall [insert anything starting with <em>rb-</em>]</li>
+<li>sudo port install rb-rails</li>
+</ul>
+<p>Oh and another one if you would want to use rb-sqlite3 on Rails. Install <a href="http://www.swig.org/">swig</a> before installing the sqlite adapter. And don&#8217;t forget, in your database.yml: <em>adapter:  sqlite3</em> Yes, with a three that is.</p>
+<p>Just a sidenote: I officially fell in love with TextMate. This editor is soooo cool. Thank you very much <a href="http://www.macromates.com/">MacroMates</a>.</p>

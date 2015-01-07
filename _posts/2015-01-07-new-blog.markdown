@@ -1,0 +1,9 @@
+---
+layout: post
+title:  "New static blog/site!"
+date:   2015-01-07 08:32:25
+categories: update
+tags: featured
+---
+
+I'm in the proces of updating my blog. Been using wordpress for ages and it is not what I want to use anymore.

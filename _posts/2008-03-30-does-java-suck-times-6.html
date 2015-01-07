@@ -1,0 +1,29 @@
+---
+layout: post
+title: Really six more reasons to hate Java?
+date: 2008-03-30 15:27:27.000000000 +02:00
+categories:
+- Java
+tags:
+---
+<p><a href="http://beta.howtorecognise.mine.nu/blog/Six_more_motives_to_hate_Java.html">Some guy from Buenos Aires made a write-up bashing some features of Java</a>. Let's test the validity of his argument. Oh, I came across his post through <a href="http://programming.reddit.com">programming.reddit.com</a>.</p>
+<p>Based on his gripes he sounds like a systems programming to me, and if your one of those: What kind of problems is he trying? Perhaps pick another language better suited for the job. He actually states this by saying Java is good for web programming, it sucks for what he's trying to do.</p>
+<p>Let's start with the first one.</p>
+<p><strong>It has no unsigned types</strong><br />
+He argues about this being a problem when reading unsigned bytes from input. Well according to my memory the inputstream classes support a read byte method which returns an int in the range of 0 to 255. No problem reading unsigned bytes there. It could hurt some people that you are wasting a few bytes though. Also, it does not matter when working with bytes alone.</p>
+<p>The shit does start when you actually have to convert bytes to another type, then you need to start thinking about how to deal the signed-ness of bytes in Java. So in my opinion, always having signed types (except for the 16 bit char) can get nasty when doing systems programming. Not to mention the problems this might cause when having to take into account if you should work big- or little- endian. For networks this is no problem, TCP/IP makes sure everything is "network order" which is big-endian and hey Java is also big-endian. Fortunatly the new IO classes can handle byte ordering easily, just have a look at the API docs. Look for ByteOrder and the order methods on the various buffer types. (It really is straight forward stuff, make a buffer, set it's byte order, start getting and/or putting.)</p>
+<p>So yeah, unsigned types can be a pain if you're doing things the old way (ie. java.io). The new way (java.nio) however makes handling byte orders dead simple, and unsigned bytes can be handled as well as well. The example he gives can still be a pain though, because you easily forget a bit shift, an addition, or a proper read/write of a single byte. I do wonder though if there isn't a neat way around this.</p>
+<p><strong>You can't inherit constructors</strong><br />
+Yeah you can't. It's a choice. By requiring explicit constructors calling nothing but super constructors you prevent people from instantiating your class without circumventing the classes initialisation logic. For simple constructors it can look stupid though.</p>
+<p><strong>You can't declare destructors</strong><br />
+That's because you don't control your objects garbage collection either. You mark an object eligible for collection by dropping references to it, at the same time you could call some cleaning logic. A dispose method is a common pattern.</p>
+<p>He states that he had to write stupid finally blocks in his wrapper class. WTF man, add better exception handling. Catch those, handle all you want and be done with it.</p>
+<p><strong>You don't have a sane way of controlling the terminal</strong><br />
+He starts yapping on about String security and finally gets to his actual gripe. You can't hide a password typed on the console. Well, ehm, know your stuff, it helps: http://java.sun.com/javase/6/docs/api/java/io/Console.html</p>
+<p><strong>No, you can't leave stdin/stdout/stderr fscking alone!</strong><br />
+What about the get*Stream methods? Ok, your code does have to handle input on those. So you have to do some extra work instead of dumping stuff on the standard console. </p>
+<p><strong>No, you can't handle signals</strong><br />
+And then he says you can, because it's undocumented in some sun package. Well, there's a reason it's in the sun package, you shouldn't use it except when you really really know what your doing.</p>
+<p><strong>Conclusion</strong><br />
+Lot's of stuff claiming that Java is garbage, but in the end it comes down to a few misunderstandings, differences of opinion and missing some features in the JDK6 release. And above all, Java is NOT the obvious choice for systems programming. Better leave that to shell scripts, C code, python, Perl, Ruby or some other language.</p>
+<p>I hope this post doesn't qualify me as a Java Zealot. Because there are things I don't like about Java. Maybe I'll report about those some other day. :)</p>

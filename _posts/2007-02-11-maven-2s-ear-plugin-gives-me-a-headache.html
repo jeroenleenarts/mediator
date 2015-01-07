@@ -1,0 +1,46 @@
+---
+layout: post
+title: Maven 2's EAR plugin gives me a headache
+date: 2007-02-11 14:20:01.000000000 +01:00
+categories:
+- Howto
+- Java
+- Maven 2
+- Work
+tags:
+---
+<p>While maven 2 is all cool and such. It can indead use some more documentation.</p>
+<p>Try building this with Maven 2:</p>
+<ul>
+<li>EJB's should be passed through IBM WebSphere's 5.1 EJB Deploy.</li>
+<li>Most application dependencies should be packaged into the resulting EAR file, and NOT into the war file.</li>
+<li>Jar files packaged at the EAR level should be mentioned in the relevant manifest class-path entries of several WAR files.</li>
+<li>There is a preference to give a packaged EJB jar in the EAR a specific name.</li>
+<li>It should all be done in one single build. Execute one pom to the requested build phase and it should be done.</li>
+</ul>
+<p>Well let's get started... I won't be pasting entire POMs, but do expect some links and snippets.</p>
+<p><b>EJB's should be passed through IBM WebSphere's 5.1 EJB Deploy.</b></p>
+<p>I can't find any Maven 2 plugin capable of running EJB Deploy on EJB's. Oh well, I'll just role my own and use a MOJO to execute through the System class of Java. No problem with that. Next I should make sure that the specific file is published to the repsoitory. No problem with that, just enter this line at the end of your MOJO's execute method:<br />
+<code>projectHelper.attachArtifact( project, "ejb-ibm", "ibm", ibmJarFile );</code><br />
+(Note that the <em>ibmJarFile</em> is a Java File initialized with the IBM EJBDeploy output jar placed in the target directory of the ejb project. So EJBDeploy gets executed and outputs the Jar with IBM stub code in the target directory of the EJB project. The name of the Jar file isn't really important, but you should follow Maven's file naming conventions and use something like <em>MyEjb-ibm.jar</em>.)</p>
+<p>Ok, so now EJB Deploy creates a nice EJB Jar file with all kinds of IBM stub code in it. Sweet! And that little line I showed, have a peak at the Maven EJB Mojo for inspiration, it also shows how you can get a <em>projectHelper</em>. Cool, lets execute this.</p>
+<p>Building seems to be ok, but when I want other files to depend on my IBM version of the EJB something is wrong. It can not be found. I did specify a type in my dependency declarion in the depending POM.</p>
+<p><code> &lt;dependency&gt;<br />
+      &lt;groupId&gt;net.leenarts.example&lt;/groupId&gt;<br />
+      &lt;artifactId&gt;MyEjb&lt;/artifactId&gt;<br />
+      &lt;version&gt;0.0.1&lt;/version&gt;<br />
+      &lt;scope&gt;compile&lt;/scope&gt;<br />
+      &lt;type&gt;ejb-ibm&lt;/type&gt;<br />
+   &lt;/dependency&gt;</code></p>
+<p>See, how I declared ejb-ibm? Sort of the same way you can depend on a ejb-client jar. The error I get from Maven is rather misleading, something about not being able to find the <strong>artifact</strong> in the remote repository. Let's open up the local repository after running an install on the EJB project. Strangely there is a file there named: MyEjb-0.0.1.ejb-ibm So Maven is rather creative with the naming. Must be some default behaviour. Well to cut this short I needed to define a custom Artifact type within my plugin. I found this little gem at only  one single bit of documentation: <a href="http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html">Introduction to the Build Lifecycle</a> Look for a paragrapg titled: <em>Creating a Custom Artifact Handler</em></p>
+<p>It involves defining a plexus addition with some kind of components.xml file. See the linked doc for more info. I put this custom artifact declaration into my EJB Deploy MOJO. Don't forget to declare extensions: true when binding the your plugin to the life cycle.</p>
+<p>Let's try again. Everything works now, EXCEPT the maven-ear-plugin. Atleast, ehm the dependences get resolved and they are included with the ibm classifier in the manifest's class-paths and EAR/WARs. (file names looking like MyEjb-0.0.1-ibm.jar) Close, but not good enough, I want control over my EJB jar file naming. AND I have to get the maven-ear-plugin to eat my configuration. Because right now it's just crashing with a nasty error declaring that the ejb-ibm type is not a recognized type.</p>
+<p>So I'm still not there yet. Now I only need to convince the EAR plugin, since to my knowledge it is the last problem I need to tackle. So let's look up the maven-ear-plugin documentation, which <a href="http://maven.apache.org/plugins/maven-ear-plugin/modules.html">states something about customizing modules</a>. The good news, there is some statement about a classifier which I can configure. So I hope that this will allow me to select my ejb-ibm artifact type, since all the other documentation states that the ibm part of my custom artifact is called a classifier (MyEjb-0.0.1-<strong>ibm</strong>.jar). I do know module configurations give me exact control over the resulting ejb jar file names. More on this on monday. Tried it and it works.</p>
+<p><b>Most application dependencies should be packaged into the resulting EAR file, and NOT into the war file.</b><br />
+You should declare the relevant dependencies as dependencies of your relevant EAR projects. Then all you need to do is make sure the jar file is mentioned in the WAR using the JAR and make sure the JAR isn't packaged in the WAR file. </p>
+<p><b>Jar files packaged at the EAR level should be mentioned in the relevant manifest class-path entries of several WAR files.</b><br />
+This combines with the above explanation. You let the EAR project depend on the artifact. Next you let the WAR file depend on the same artifact. And you declare that the maven-war-plugin should <em>addClasspath</em> as <a href="http://maven.apache.org/plugins/maven-war-plugin/examples/war-manifest-guide.html">described here</a>.<br />
+First guess would be to give the dependency a <em>provided</em> scope right? WRONG! Provided should be used for platform dependencies like J2EE jar. This one is a stupid trick. Instead of using a provided scope, drop the scope declaration and declare the dependency as optional. Now in my book an optional dependency is kind of misleading, but hey it works. I get my manifest class-path declaration and it's not included in the war itself.</p>
+<p><b>There is a preference to give a packaged EJB jar in the EAR a specific name.</b><br />
+See my longer explanation above. Something with using Module configurations within the maven-ear-plugin.</p>
+<p>As you can tell, this post is sort of a brain dump to get this info out there. I am not aware of any proper documentation on the problems I encountered. So it might be a bit terse to read. If you have any questions or would like to know some more details. Post a comment, I'll do my best to elaborate.</p>
